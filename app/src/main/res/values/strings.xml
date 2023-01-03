@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">My Delivery</string>
+    <string name="name">שם הנמען</string>
+    <string name="phone">פלאפון</string>
+    <string name="address">כתובת</string>
+    <string name="title1" >פרטי הנמען</string>
+    <string name="title2" >פרטי החבילה</string>
+</resources>
