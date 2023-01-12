@@ -15,8 +15,7 @@ class Package(nameOfTheOwner : String, phoneNumberOfTheOwner : String, addressOf
     var warehouseLocationLongitude : Double = 0.0
     var warehouseLocationLatitude : Double = 0.0
     var fragileContent : Boolean = false
-    var packageType : PackageType = PackageType.בינונית
-
+    var packageType : PackageType = PackageType.Medium
     init {
         this.id = id
         this.nameOfTheOwner = nameOfTheOwner

@@ -2,10 +2,11 @@ package com.example.packagesending
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
 import android.view.View
 import android.widget.*
 import com.google.firebase.FirebaseApp
-
+import android.text.TextWatcher
 
 class MainActivity : AppCompatActivity() {
     private lateinit var ownerNameEt: EditText
@@ -23,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var rbYes: RadioButton
     private lateinit var addButton: Button
     private lateinit var spinRTv: TextView
-
+    var int: Int = 8
     private lateinit var dataBaseRef: FireBaseDBConnection
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,13 +55,29 @@ class MainActivity : AppCompatActivity() {
         addButton = findViewById(R.id.addButton)
 
         rbYes.isChecked = true
-
         //init for areas Code - spinner.
-        var areasCode = ArrayList<String>()
+        val areasCode = ArrayList<String>()
         for (i in 0..9) {
             areasCode.add("05$i-")
         }
+        ownerNameEt.addTextChangedListener( object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                int--
+            }
+            override fun afterTextChanged(p0: Editable?) {}
+        })
+        ownerPhoneEt.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                int--
+            }
+            override fun afterTextChanged(p0: Editable?) {}
+        })
         // set Adapter of areas Code to the spinner.
         areaCode.adapter = ArrayAdapter(
             this, android.R.layout.simple_list_item_1, areasCode
@@ -76,6 +93,9 @@ class MainActivity : AppCompatActivity() {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 spinRTv.visibility = View.VISIBLE
                 spinRTv.text = pacTypeSp.selectedItem.toString()
+                int--
+
+
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -85,11 +105,13 @@ class MainActivity : AppCompatActivity() {
 
         rbNo.setOnClickListener(View.OnClickListener {
             rbYes.isChecked = rbNo.isChecked != true
+            int--
         })
 
         rbYes.setOnClickListener(View.OnClickListener {
 
             rbNo.isChecked = rbYes.isChecked != true
+            int--
         })
 
         // click event of seek bar: seekBarWeight.
@@ -97,6 +119,7 @@ class MainActivity : AppCompatActivity() {
             // Display the current progress of SeekBar
             override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
                 weightEt.setText(i.toString())
+                int--
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
@@ -108,6 +131,7 @@ class MainActivity : AppCompatActivity() {
             // Display the current progress of SeekBar
             override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
                 latitudeTt.setText(i.toString())
+                int--
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
@@ -119,6 +143,7 @@ class MainActivity : AppCompatActivity() {
             // Display the current progress of SeekBar
             override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
                 longitudeTt.setText(i.toString())
+                int--
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
@@ -127,6 +152,7 @@ class MainActivity : AppCompatActivity() {
 
         // click event of button: addButton.
         addButton.setOnClickListener(View.OnClickListener {
+            if (int == 0){
 
             // add new package to the fire base.
             var pac: Package = Package(
@@ -158,7 +184,7 @@ class MainActivity : AppCompatActivity() {
                 override fun onProgress(status: String?, percent: Double) {}
             })
 
-        })
+        } })
     }
  }
 
